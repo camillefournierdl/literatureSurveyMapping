@@ -66,6 +66,8 @@ pdf("figures/main/Figure1_papers_by_income.pdf", width = 10)
 p1
 dev.off()
 
+p1 <- p1 + theme(axis.text.x=element_text(size = 9.5))
+
 ggsave(plot = p1, filename = paste("figures/main/Figure1_papers_by_income.png", sep = ""),
        dpi=600, width = 11, height = 8, units='cm')
 
@@ -290,6 +292,7 @@ p2
 dev.off()
 
 # p2 <- p2 + theme(axis.text.x=element_text(angle = 30, hjust = 1, vjust = 1))
+p2 <- p2 + theme(axis.text.x=element_text(size = 9.5))
 
 ggsave(plot = p2, filename = paste("figures/main/Figure1_surveys_by_income_eurob.png", sep = ""),
        dpi=600, width = 11, height = 8, units='cm')
@@ -351,6 +354,8 @@ p4
 pdf("figures/main/Figure1_surveys_by_exposure_eurob.pdf", width = 10)
 p4
 dev.off()
+
+p4 <- p4 + theme(axis.text.x=element_text(size = 8))
 
 ggsave(plot = p4, filename = paste("figures/main/Figure1_surveys_by_exposure_eurob.png", sep = ""),
        dpi=600, width = 10, height = 8, units='cm')
