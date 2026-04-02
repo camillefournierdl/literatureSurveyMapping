@@ -9,7 +9,7 @@
 - E. Keith Smith
 
 Henninger, E., Fournier de Lauriere, C., Nabilla, A., Moolla, R., & Smith, K. (202X).
-Public Views on Air Pollution: Mapping Global Patterns in Research and Survey Coverage.
+Where Knowledge Matters Most, We Know the Least:Global Patterns and Blind Spots in Air Pollution Public Opinion.
 *Journal Name*, *Volume*(Issue), pages. https://doi.org/10.
 
 ## Overview
