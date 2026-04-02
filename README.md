@@ -1,4 +1,4 @@
-# Replication material for the paper: **"Public Views on Air Pollution: Mapping Global Patterns in Research and Survey Coverage"**
+# Replication material for the paper: **"Where Knowledge Matters Most, We Know the Least:Global Patterns and Blind Spots in Air Pollution Public Opinion"**
 
 ## Authors
 
