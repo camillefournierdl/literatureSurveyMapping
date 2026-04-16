@@ -171,6 +171,8 @@ pdf("figures/main/Figure1_papers_by_exposure.pdf", width = 10)
 p3
 dev.off()
 
+p3 <- p3 + theme(axis.text.x=element_text(size = 8))
+
 ggsave(plot = p3, filename = paste("figures/main/Figure1_papers_by_exposure.png", sep = ""),
        dpi=600, width = 10, height = 8, units='cm')
 

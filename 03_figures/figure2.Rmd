@@ -1,7 +1,5 @@
 ---
 title: "Figure two"
-author: "Ella Henninger & Camille Fournier"
-date: "2025-10-17"
 output: html_document
 ---
 
