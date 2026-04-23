@@ -1,0 +1,167 @@
+---
+title: "figure3 – Opportunity Map"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath(".."))
+```
+
+```{r opportunity_map}
+
+dir.create("figures/main", showWarnings = FALSE)
+
+library(tidyverse)
+library(rnaturalearth)
+library(sf)
+
+# ── 1. Load classification datasets ──────────────────────────────────────────
+
+"%ni%" = Negate("%in%")
+
+papers <- read.csv2("output/paperClassifYear.csv",
+                    header = T, sep = ",", dec = ".")
+
+surveys <- read.csv2("output/surveyClassifYear.csv",
+                     header = T, sep = ",", dec = ".")
+
+dataSummary <- read.csv("output/datasetPlots.csv")
+
+papers <- papers %>%
+  filter(!is.na(iso3))
+
+surveys <- surveys %>%
+  filter(!is.na(iso3))
+
+dataSummary <- dataSummary %>%
+  filter(!is.na(iso3))
+
+dataSummary$categoryPollution <- ifelse(
+  !is.na(dataSummary$categoryPollution),
+  paste0(toupper(substr(dataSummary$categoryPollution, 1, 1)),
+         substr(dataSummary$categoryPollution, 2, nchar(dataSummary$categoryPollution))),
+  NA
+)
+
+dataSummary$categoryPollution <- factor(
+  dataSummary$categoryPollution,
+  levels = rev(c(
+    "Very high",
+    "High",
+    "Medium",
+    "Low",
+    "Very low"
+  )),
+  ordered = TRUE
+)
+
+papers  <- merge(papers,  dataSummary, by = "iso3", all.x = T, all.y = F)
+surveys <- merge(surveys, dataSummary, by = "iso3", all.x = T, all.y = F)
+
+## surveys: drop items for which Inclusion == 0
+surveys <- surveys[which(surveys$Inclusion == 1),]
+
+topics <- c("Perceptions", "Priority", "Policy", "Health", "Behavior")
+
+# ── 2. For each country × topic: does ≥1 paper cover it? ─────────────────────
+# papers is already long-format (one row per paper × country × category)
+
+lit_covered <- papers %>%
+  filter(category %in% topics) %>%
+  distinct(iso3, category) %>%
+  mutate(lit_covered = 1L) %>%
+  rename(topic = category)
+
+# ── 3. For each country × topic: does ≥1 survey item cover it? ───────────────
+# surveys is already long-format (one row per item × country × category)
+
+surv_covered <- surveys %>%
+  filter(category %in% topics) %>%
+  distinct(iso3, category) %>%
+  mutate(surv_covered = 1L) %>%
+  rename(topic = category)
+
+# ── 4. Assign coverage status (mutually exclusive, priority: lit > survey) ────
+
+opportunity <- full_join(lit_covered, surv_covered, by = c("iso3", "topic")) %>%
+  replace_na(list(lit_covered = 0, surv_covered = 0)) %>%
+  mutate(status = case_when(
+    lit_covered  == 1 ~ "Covered in literature",
+    surv_covered == 1 ~ "Survey opportunity",
+    TRUE              ~ "No data"
+  ))
+
+# ── 5. Build world geometry (sf, no terra needed for faceting) ────────────────
+
+world_sf <- ne_countries(scale = "large", returnclass = "sf")
+
+# France and Norway iso_a3 fix (same as figure1.Rmd)
+world_sf$iso_a3 <- ifelse(world_sf$iso_a3_eh == "FRA", "FRA",
+                           ifelse(world_sf$iso_a3_eh == "NOR", "NOR",
+                                  world_sf$iso_a3))
+
+world_sf <- world_sf %>%
+  filter(name != "Antarctica") %>%
+  select(iso_a3, geometry)
+
+# ── 6. Expand world to one row per topic, then join opportunity data ──────────
+
+world_expanded <- bind_rows(
+  lapply(topics, function(t) world_sf %>% mutate(topic = t))
+)
+
+world_opp <- world_expanded %>%
+  left_join(
+    opportunity %>% select(iso3, topic, status),
+    by = c("iso_a3" = "iso3", "topic")
+  ) %>%
+  mutate(
+    status = replace_na(status, "No data"),
+    status = factor(status,
+                    levels = c("Covered in literature",
+                               "Survey opportunity",
+                               "No data")),
+    topic  = factor(topic, levels = topics)
+  )
+
+# ── 7. Plot ───────────────────────────────────────────────────────────────────
+
+status_colors <- c(
+  "Covered in literature" = "#8B475D",
+  "Survey opportunity"    = "#F7B32B",
+  "No data"               = "#EEEEEE"
+)
+
+map_opp <- ggplot(world_opp) +
+  geom_sf(aes(fill = status), color = "grey80", linewidth = 0.1) +
+  scale_fill_manual(values = status_colors, name = "") +
+  facet_wrap(~ topic, nrow = 2) +
+  coord_sf(expand = FALSE) +
+  theme_void(base_size = 11) +
+  theme(
+    legend.position   = "bottom",
+    legend.key.size   = unit(0.5, "cm"),
+    legend.text       = element_text(size = 10),
+    strip.text        = element_text(face = "bold", size = 11, margin = margin(b = 4)),
+    plot.background   = element_rect(fill = "white", color = NA),
+    panel.background  = element_rect(fill = "white", color = NA)
+  )
+
+map_opp
+
+# ── 8. Save ───────────────────────────────────────────────────────────────────
+
+ggsave(
+  plot     = map_opp,
+  filename = "figures/main/Figure3_opportunity_map.png",
+  dpi      = 600,
+  width    = 24,
+  height   = 14,
+  units    = "cm"
+)
+
+pdf("figures/main/Figure3_opportunity_map.pdf", width = 14, height = 8)
+print(map_opp)
+dev.off()
+
+```

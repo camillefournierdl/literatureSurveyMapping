@@ -1,0 +1,159 @@
+---
+title: "Tables"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_knit$set(root.dir = normalizePath(".."))
+```
+
+```{r libraries}
+library(tidyverse)
+library(knitr)
+library(stringi)
+```
+
+```{r load-data}
+lit <- read_csv("data/raw/literature_dataset.csv") %>%
+  select(ID, Title, Authors, Year)
+
+paper_classif <- read_csv("output/paperClassifYear.csv")
+
+surveys_raw <- read_delim(
+  "data/raw/survey_classification.csv",
+  delim     = ";",
+  show_col_types = FALSE,
+  locale    = locale(encoding = "UTF-8")
+)
+```
+
+```{r build-table}
+# paperClassifYear is long format (one row per paper x category x country)
+# collapse to one row per paper
+paper_summary <- paper_classif %>%
+  group_by(ID) %>%
+  summarise(
+    Country  = paste(sort(unique(country)), collapse = "; "),
+    Category = paste(sort(unique(category)), collapse = "; "),
+    .groups  = "drop"
+  )
+
+table_papers <- lit %>%
+  inner_join(paper_summary, by = "ID") %>%
+  select(Title, Authors, Year, Country, Category) %>%
+  arrange(Year, Authors)
+```
+
+```{r write-outputs}
+dir.create("figures/tables", showWarnings = FALSE, recursive = TRUE)
+
+# Escape special LaTeX characters in text columns
+escape_latex <- function(x) {
+  x <- gsub("&",  "\\\\&",  x)
+  x <- gsub("%",  "\\\\%",  x)
+  x <- gsub("\\$", "\\\\$", x)
+  x <- gsub("#",  "\\\\#",  x)
+  x <- gsub("_",  "\\\\_",  x)
+  x <- gsub("\\{", "\\\\{", x)
+  x <- gsub("\\}", "\\\\}", x)
+  x <- gsub("~",  "\\\\textasciitilde{}", x)
+  x <- gsub("\\^", "\\\\textasciicircum{}", x)
+  x
+}
+
+tex_tbl <- table_papers %>%
+  # Remove bracketed portions containing CJK characters (translated subtitles)
+  mutate(Title = gsub("\\s*;?\\s*\\[[^\\]]*\\p{Han}[^\\]]*\\]", "", Title, perl = TRUE)) %>%
+  # Transliterate all remaining non-ASCII characters (Cyrillic, accented, etc.) to ASCII
+  mutate(across(c(Title, Authors, Country, Category),
+                ~ stri_trans_general(.x, "Any-Latin; Latin-ASCII"))) %>%
+  # Strip any residual non-ASCII characters that survive transliteration
+  mutate(across(c(Title, Authors, Country, Category),
+                ~ gsub("[^\x01-\x7F]", "", .x))) %>%
+  mutate(across(c(Title, Authors, Country, Category), escape_latex))
+
+tex_body <- kable(
+  tex_tbl,
+  format    = "latex",
+  booktabs  = TRUE,
+  longtable = TRUE,
+  col.names = c("Title", "Authors", "Year", "Country", "Category"),
+  caption   = "Included papers with country and category assignments",
+  label     = "papers"
+)
+
+tex_body <- sub(
+  "(\\\\begin\\{longtable\\})(\\[[^]]*\\])?\\{[^}]+\\}",
+  "\\1[t]{p{6cm}p{3cm}lp{3cm}p{3cm}}",
+  tex_body
+)
+
+writeLines(
+  c("{\\fontsize{8}{10}\\selectfont", tex_body, "}"),
+  "figures/tables/Table_papers.tex"
+)
+
+# CSV for reference
+write_csv(table_papers, "figures/tables/Table_papers.csv")
+
+cat("Wrote figures/tables/Table_papers.tex and Table_papers.csv\n")
+cat("Rows:", nrow(table_papers), "\n")
+```
+
+```{r build-survey-table}
+cat_cols <- c("Perceptions", "Behavior", "Policy", "Health", "Priority")
+
+table_surveys <- surveys_raw %>%
+  filter(Inclusion == 1) %>%
+  mutate(
+    # Combine current year and prior repeated-measure years into one string
+    Years = if_else(
+      is.na(repeatedMeasure) | repeatedMeasure == "",
+      as.character(year),
+      paste(
+        sort(unique(as.integer(
+          strsplit(paste(year, repeatedMeasure, sep = "; "), "; ")[[1]]
+        ))),
+        collapse = "; "
+      )
+    ),
+    Category = apply(
+      pick(all_of(cat_cols)), 1,
+      function(row) paste(cat_cols[row == 1], collapse = "; ")
+    )
+  ) %>%
+  select(Question = question, Program = source, Years, Countries = surveyedCountries, Category) %>%
+  arrange(Program, Years)
+```
+
+```{r write-survey-outputs}
+tex_survey <- table_surveys %>%
+  mutate(across(c(Question, Program, Years, Countries, Category), escape_latex))
+
+tex_body_survey <- kable(
+  tex_survey,
+  format    = "latex",
+  booktabs  = TRUE,
+  longtable = TRUE,
+  col.names = c("Question", "Program", "Years", "Countries", "Category"),
+  caption   = "Included survey items with program, years, countries, and category",
+  label     = "surveys"
+)
+
+tex_body_survey <- sub(
+  "(\\\\begin\\{longtable\\})(\\[[^]]*\\])?\\{[^}]+\\}",
+  "\\1[t]{p{6cm}lp{2cm}p{4cm}p{2.5cm}}",
+  tex_body_survey
+)
+
+writeLines(
+  c("{\\fontsize{8}{10}\\selectfont", tex_body_survey, "}"),
+  "figures/tables/Table_surveys.tex"
+)
+
+write_csv(table_surveys, "figures/tables/Table_surveys.csv")
+
+cat("Wrote figures/tables/Table_surveys.tex and Table_surveys.csv\n")
+cat("Rows:", nrow(table_surveys), "\n")
+```

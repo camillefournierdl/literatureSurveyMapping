@@ -38,6 +38,9 @@ run_rmd("03_figures/figure1.Rmd")
 message("Step 3b: Generating Figure 2...")
 run_rmd("03_figures/figure2.Rmd")
 
+message("Step 3c: Generating Figure 3 (opportunity map)...")
+run_rmd("03_figures/figure3.Rmd")
+
 # ── 4. Robustness analysis ────────────────────────────────────────────────────
 message("Step 4: Running robustness analysis...")
 run_rmd("04_robustness/robustness_analysis.Rmd")
