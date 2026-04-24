@@ -91,7 +91,7 @@ p1 <- ggplot(papers_long, aes(y = reorder(Topic, n), x = n, fill = Topic)) +
   geom_col(color = "black") +
   geom_text(aes(label = percent(share, accuracy = 1)),
             hjust = -0.3, size = 5) +
-  labs(y = NULL, x = "Percentage of topics covered in papers") +
+  labs(y = NULL, x = "Number of papers x country covering topic") +
   scale_fill_manual(values = c(
     "Perceptions" = "#8B7B8B",
     "Behavior"    = "#EED8AE",
@@ -140,7 +140,7 @@ p2 <- ggplot(surveys_long, aes(y = reorder(Topic, n), x = n, fill = Topic)) +
   geom_col(color = "black") +
   geom_text(aes(label = percent(share, accuracy = 1)),
             hjust = -0.3, size = 5) +
-  labs(y = NULL, x = "Percentage of topics covered in survey items") +
+  labs(y = NULL, x = "Number of survey items x country\nx year covering topic") +
   scale_fill_manual(values = c(
     "Perceptions" = "#8B7B8B",
     "Behavior"    = "#EED8AE",
@@ -195,7 +195,7 @@ p1 <- ggplot(papers_long, aes(y = reorder(Topic, n), x = n, fill = Topic)) +
   geom_col(color = "black") +
   geom_text(aes(label = percent(share, accuracy = 1)),
             hjust = -0.3, size = 5) +
-  labs(y = NULL, x = "Percentage of topics covered in papers") +
+  labs(y = NULL, x = "Number of papers x country covering topic") +
   scale_fill_manual(values = c(
     "Perceptions" = "#8B7B8B",
     "Behavior"    = "#EED8AE",
@@ -247,7 +247,7 @@ p2 <- ggplot(surveys_long, aes(y = reorder(Topic, n), x = n, fill = Topic)) +
   geom_col(color = "black") +
   geom_text(aes(label = percent(share, accuracy = 1)),
             hjust = -0.3, size = 5) +
-  labs(y = NULL, x = "Percentage of topics covered in survey items") +
+  labs(y = NULL, x = "Number of survey items x country\nx year covering topic") +
   scale_fill_manual(values = c(
     "Perceptions" = "#8B7B8B",
     "Behavior"    = "#EED8AE",
@@ -371,17 +371,17 @@ totals_data <- totals_data %>%
 p3 <- ggplot() +
   # --- top totals row ---
   geom_tile(data = totals_data,
-            aes(x = Income.group, y = "Total papers", fill = total),
+            aes(x = Income.group, y = "Total papers\nx country", fill = total),
             color = "white", linewidth = 0.8) +
   geom_text(
     data = totals_data,
-    aes(x = Income.group, y = "Total papers",
+    aes(x = Income.group, y = "Total papers\nx country",
         label = paste0("n=", total),
         color = "black"),
     size = 5
   ) +
   scale_fill_gradient(
-    name = "Total papers",
+    name = "Total papers\nx country",
     low = "#F6DBA7", high = "#F7B32B",
     breaks = range(totals_data$total),
     labels = range(totals_data$total)
@@ -524,11 +524,11 @@ surveys_totals <- surveys_totals %>%
 p4 <- ggplot() +
   # --- top totals row ---
   geom_tile(data = surveys_totals,
-            aes(x = Income.group, y = "Total items", fill = total),
+            aes(x = Income.group, y = "Total items x\ncountry x year", fill = total),
             color = "white", linewidth = 0.8) +
   geom_text(
     data = surveys_totals,
-    aes(x = Income.group, y = "Total items",
+    aes(x = Income.group, y = "Total items x\ncountry x year",
         label = paste0("n=", total),
         color = "black"),
     size = 5
@@ -684,11 +684,11 @@ totals_data <- totals_data %>%
 p3 <- ggplot() +
   # --- top totals row ---
   geom_tile(data = totals_data,
-            aes(x = Income.group, y = "Total papers", fill = total),
+            aes(x = Income.group, y = "Total papers\nx country", fill = total),
             color = "white", linewidth = 0.8) +
   geom_text(
     data = totals_data,
-    aes(x = Income.group, y = "Total papers",
+    aes(x = Income.group, y = "Total papers\nx country",
         label = paste0("n=", total),
         color = "black"),
     size = 5
@@ -841,11 +841,11 @@ surveys_totals <- surveys_totals %>%
 p4 <- ggplot() +
   # --- top totals row ---
   geom_tile(data = surveys_totals,
-            aes(x = Income.group, y = "Total items", fill = total),
+            aes(x = Income.group, y = "Total items x\ncountry x year", fill = total),
             color = "white", linewidth = 0.8) +
   geom_text(
     data = surveys_totals,
-    aes(x = Income.group, y = "Total items",
+    aes(x = Income.group, y = "Total items x\ncountry x year",
         label = paste0("n=", total),
         color = "black"),
     size = 5
@@ -953,14 +953,14 @@ p5 <- ggplot() +
   # --- top totals row ---
   geom_tile(
     data = totals_data_poll,
-    aes(x = categoryPollution, y = "Total papers", fill = total),
+    aes(x = categoryPollution, y = "Total papers\nx country", fill = total),
     color = "white", linewidth = 0.8
   ) +
   geom_text(
     data = totals_data_poll,
     aes(
       x = categoryPollution,
-      y = "Total papers",
+      y = "Total papers\nx country",
       label = paste0("n=", total),
       color = "black"
     ),
@@ -1087,14 +1087,14 @@ p6 <- ggplot() +
   # --- top totals row ---
   geom_tile(
     data = totals_data_survey_poll,
-    aes(x = categoryPollution, y = "Total items", fill = total),
+    aes(x = categoryPollution, y = "Total items x\ncountry x year", fill = total),
     color = "white", linewidth = 0.8
   ) +
   geom_text(
     data = totals_data_survey_poll,
     aes(
       x = categoryPollution,
-      y = "Total items",
+      y = "Total items x\ncountry x year",
       label = paste0("n=", total),
       color = "black"
     ),
@@ -1212,14 +1212,14 @@ p5 <- ggplot() +
   # --- top totals row ---
   geom_tile(
     data = totals_data_poll,
-    aes(x = categoryPollution, y = "Total papers", fill = total),
+    aes(x = categoryPollution, y = "Total papers\nx country", fill = total),
     color = "white", linewidth = 0.8
   ) +
   geom_text(
     data = totals_data_poll,
     aes(
       x = categoryPollution,
-      y = "Total papers",
+      y = "Total papers\nx country",
       label = paste0("n=", total),
       color = "black"
     ),
@@ -1351,14 +1351,14 @@ p6 <- ggplot() +
   # --- top totals row ---
   geom_tile(
     data = totals_data_survey_poll,
-    aes(x = categoryPollution, y = "Total items", fill = total),
+    aes(x = categoryPollution, y = "Total items x\ncountry x year", fill = total),
     color = "white", linewidth = 0.8
   ) +
   geom_text(
     data = totals_data_survey_poll,
     aes(
       x = categoryPollution,
-      y = "Total items",
+      y = "Total items x\ncountry x year",
       label = paste0("n=", total),
       color = "black"
     ),

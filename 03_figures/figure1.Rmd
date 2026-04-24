@@ -56,7 +56,7 @@ p1 <- summaryPaperInc %>%
   ) +
   scale_fill_manual(values = c("#C19EAB", "#C19EAB", "#8B475D")) +
   theme_minimal() +
-  labs(y = "Total number of papers", x = "Income group") +
+  labs(y = "Total number of papers x country", x = "Income group") +
   theme(legend.position = "none") +
   expand_limits(y = max(totals$total) * 1.05)  # avoid clipping
 
@@ -102,7 +102,7 @@ p2 <- summarySurveysInc %>%
   ) +
   scale_fill_manual(values = c("#E6D0F4", "#E6D0F4", "#B873E7")) +
   theme_minimal() +
-  labs(y = "Total number of survey items", x = "Income group") +
+  labs(y = "Total number of survey items x country x year", x = "Income group") +
   theme(legend.position = "none") +
   expand_limits(y = max(totals$total) * 1.05)  # avoid clipping
 
@@ -161,7 +161,7 @@ p3 <- summaryPaperExp %>%
   ) +
   scale_fill_manual(values = c("#C19EAB", "#A67384", "#8B475D")) +
   theme_minimal() +
-  labs(y = "Total number of papers", x = "Pollution exposure") +
+  labs(y = "Total number of papers x country", x = "Pollution exposure") +
   theme(legend.position = "none", axis.text.x = element_text(size = 7)) +
   expand_limits(y = max(totals$total) * 1.05)  # avoid clipping
 
@@ -224,7 +224,7 @@ p4 <- summarySurveysExp %>%
   ) +
   scale_fill_manual(values = c("#E6D0F4", "#D4ABEF", "#B873E7")) +
   theme_minimal() +
-  labs(y = "Total number of survey items", x = "Pollution exposure") +
+  labs(y = "Total number of survey items x country x year", x = "Pollution exposure") +
   theme(legend.position = "none", axis.text.x = element_text(size = 7)) +
   expand_limits(y = max(totals$total) * 1.05)  # avoid clipping
 
@@ -283,7 +283,7 @@ p2 <- summarySurveysInc %>%
   ) +
   scale_fill_manual(values = c("#E6D0F4", "#B873E7")) +
   theme_minimal() +
-  labs(y = "Total number of survey items", x = "Income group") +
+  labs(y = "Total number of survey\nitems x country x year", x = "Income group") +
   theme(legend.position = "none") +
   expand_limits(y = max(totals$total) * 1.05)  # avoid clipping
 
@@ -294,10 +294,11 @@ p2
 dev.off()
 
 # p2 <- p2 + theme(axis.text.x=element_text(angle = 30, hjust = 1, vjust = 1))
-p2 <- p2 + theme(axis.text.x=element_text(size = 9.5))
+p2 <- p2 + theme(axis.text.x=element_text(size = 9.5)) #+ 
+  # theme(axis.title.y=element_text(size = 9.25))
 
 ggsave(plot = p2, filename = paste("figures/main/Figure1_surveys_by_income_eurob.png", sep = ""),
-       dpi=600, width = 11, height = 8, units='cm')
+       dpi=600, width = 11.5, height = 8.5, units='cm')
 
 ## then surveys per exposure
 
@@ -347,7 +348,7 @@ p4 <- summarySurveysExp %>%
   ) +
   scale_fill_manual(values = c("#E6D0F4", "#B873E7")) +
   theme_minimal() +
-  labs(y = "Total number of survey items", x = "Pollution exposure") +
+  labs(y = "Total number of survey\nitems x country x year", x = "Pollution exposure") +
   theme(legend.position = "none", axis.text.x = element_text(size = 7)) +
   expand_limits(y = max(totals$total) * 1.05)  # avoid clipping
 
@@ -357,7 +358,8 @@ pdf("figures/main/Figure1_surveys_by_exposure_eurob.pdf", width = 10)
 p4
 dev.off()
 
-p4 <- p4 + theme(axis.text.x=element_text(size = 8))
+p4 <- p4 + theme(axis.text.x=element_text(size = 8)) +
+  theme(axis.title.y=element_text(size = 9.2))
 
 ggsave(plot = p4, filename = paste("figures/main/Figure1_surveys_by_exposure_eurob.png", sep = ""),
        dpi=600, width = 10, height = 8, units='cm')
@@ -455,7 +457,7 @@ map_plot_clean_survey <- ggplot() +
   ) +
   scale_fill_gradientn(
     colours = c("#F3EBF8", "#D4ABEF", "#541F78"),
-    name    = "Survey items",
+    name    = "Survey items x year",
     trans   = "log10",
     breaks  = my_breaks,
     labels  = label_number(
