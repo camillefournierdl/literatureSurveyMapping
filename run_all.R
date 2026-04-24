@@ -27,6 +27,10 @@ for (modelName in c("o4mini", "5mini")) {
 message("Step 1b: Resolving unknown countries...")
 source("01_quality_validation/resolve_unknown_countries.R")
 
+# 1c: Identify duplicates and retracted
+message("Step 1c: Identify duplicate papers...")
+source("01_quality_validation/identify_retracted_duplicates.R")
+
 # ── 2. Data preparation ───────────────────────────────────────────────────────
 message("Step 2: Preparing analysis datasets...")
 run_rmd("02_data_preparation/data_prep.Rmd")

@@ -8,43 +8,18 @@ output: html_document
 dir.create("figures/robustness", showWarnings = FALSE)
 
 library(tidyverse)
-library(stringi)
-library(fuzzyjoin)
 
+# The unnamed first column of combined_lit_social_science.csv is the ID from
+# literature_dataset.csv (verified: 100% of rows match by both ID and DOI).
 litReviewSub <- read.csv("data/raw/combined_lit_social_science.csv")
 
-clean_title <- function(x) {
-  x %>%
-    stri_trans_general("Latin-ASCII") %>%  # turn “é” → “e”
-    tolower() %>%                          # lowercase
-    gsub("[^[:alnum:] ]+", "", .) %>%      # drop punctuation
-    trimws()                               # trim whitespace
-}
+papers_to_exclude <- read.csv("output/papers_to_exclude.csv")
 
-litReviewSub <- litReviewSub %>%
-  select(Title) %>% 
-  mutate(title_clean = clean_title(Title))
-
-litReviewSub <- litReviewSub %>%
-  group_by(title_clean) %>% 
-  summarize(title_clean = first(title_clean))
-
-datasetID <- read.csv("data/raw/literature_dataset.csv")
-
-datasetID <- datasetID %>%
-  mutate(title_clean = clean_title(Title))
-
-litReviewMerged2 <- stringdist_left_join(
-  litReviewSub, datasetID,
-  by = "title_clean",
-  method = "lv",        # Levenshtein
-  max_dist = 15,         # tweak this
-  distance_col = "dist" # keep the distance
-) %>%
-  arrange(-dist) %>%          # largest distances first
-  group_by(ID) %>% 
-  summarize(ID = first(ID),
-            Title = first(Title))
+litReviewMerged2 <- litReviewSub %>%
+  rename(ID = 1) %>%
+  filter(!ID %in% papers_to_exclude$ID) %>%
+  select(ID, Title) %>%
+  distinct(ID, .keep_all = TRUE)
 
 write.csv(litReviewMerged2, "output/robustnessSocialScience.csv", row.names = F)
 
@@ -57,6 +32,10 @@ library(tidyverse)
 dataToSubset <- read.csv("output/robustnessSocialScience.csv")
 
 datasetClassification <- read.csv("output/dataClassifToPloto4mini.csv")
+
+papers_to_exclude <- read.csv("output/papers_to_exclude.csv")
+datasetClassification <- datasetClassification %>%
+  filter(!ID %in% papers_to_exclude$ID)
 
 datasetCountries <- read.csv("output/fullClassifCountryo4mini.csv")
 
@@ -196,7 +175,7 @@ map_plot_viridis_clean <- ggplot() +
   coord_sf(expand = FALSE) +
   labs(
     title    = "Global Publication Counts by Country",
-    # subtitle = "Log₁₀ scale, viridis “plasma” palette"
+    # subtitle = "Log₁₀ scale, viridis "plasma" palette"
   ) +
   theme_void(base_size = 14) +
   theme(
@@ -277,7 +256,7 @@ df_cat_long <- datasetClassificationCountries_long_clean %>%
     names_to  = "category",
     values_to = "flag"
   ) %>%
-  # keep only “paper belongs to this category”
+  # keep only "paper belongs to this category"
   filter(flag == 1) %>%
   select(-flag)
 

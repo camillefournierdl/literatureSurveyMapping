@@ -135,19 +135,19 @@ status_colors <- c(
 map_opp <- ggplot(world_opp) +
   geom_sf(aes(fill = status), color = "grey80", linewidth = 0.1) +
   scale_fill_manual(values = status_colors, name = "") +
-  facet_wrap(~ topic, nrow = 2) +
+  facet_wrap(~ topic, nrow = 3) +
   coord_sf(expand = FALSE) +
   theme_void(base_size = 11) +
   theme(
     legend.position   = "bottom",
-    legend.key.size   = unit(0.5, "cm"),
-    legend.text       = element_text(size = 10),
-    strip.text        = element_text(face = "bold", size = 11, margin = margin(b = 4)),
+    legend.key.size   = unit(1, "cm"),
+    legend.text       = element_text(size = 22),
+    strip.text        = element_text(face = "bold", size = 22, margin = margin(b = 4)),
     plot.background   = element_rect(fill = "white", color = NA),
     panel.background  = element_rect(fill = "white", color = NA)
   )
 
-map_opp
+# map_opp
 
 # ── 8. Save ───────────────────────────────────────────────────────────────────
 
@@ -160,7 +160,7 @@ ggsave(
   units    = "cm"
 )
 
-pdf("figures/main/Figure3_opportunity_map.pdf", width = 14, height = 8)
+pdf("figures/main/Figure3_opportunity_map.pdf", width = 14, height = 12)
 print(map_opp)
 dev.off()
 

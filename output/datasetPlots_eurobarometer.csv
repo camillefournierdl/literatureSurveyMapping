@@ -79,8 +79,8 @@
 "CHE",1,3,"Switzerland",8.8,8240652.067,"very low",0,0,"Switzerland","Europe & Central Asia","High income","","Europe","Europe",0
 "CHL",0,6,"Chile",18.3,17870505.86,"medium",0,0,"Chile","Latin America & Caribbean","High income","IBRD","South America","Americas",2
 "CHL",1,6,"Chile",18.3,17870505.86,"medium",0,0,"Chile","Latin America & Caribbean","High income","IBRD","South America","Americas",0
-"CHN",0,168,"China",37.7,1401793873.9,"very high",1,0,"China","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",24
-"CHN",1,168,"China",37.7,1401793873.9,"very high",1,0,"China","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",0
+"CHN",0,165,"China",37.7,1401793873.9,"very high",1,0,"China","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",24
+"CHN",1,165,"China",37.7,1401793873.9,"very high",1,0,"China","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",0
 "CIV",0,0,"Côte d'Ivoire",21.9,23578198.716,"medium",0,0,"Côte d’Ivoire","Sub-Saharan Africa","Lower middle income","IDA","Africa","Africa",2
 "CIV",1,0,"Côte d'Ivoire",21.9,23578198.716,"medium",0,0,"Côte d’Ivoire","Sub-Saharan Africa","Lower middle income","IDA","Africa","Africa",0
 "CMR",0,0,"Cameroon",37,23038492.024,"very high",0,0,"Cameroon","Sub-Saharan Africa","Lower middle income","Blend","Africa","Africa",2
@@ -209,8 +209,8 @@
 "ISL",1,1,"Iceland",4.7,331059.99998,"very low",0,0,"Iceland","Europe & Central Asia","High income","","Europe","Europe",0
 "ISR",0,0,"Israel",21.6,8006085.191,"medium",0,0,"Israel","Middle East & North Africa","High income","","Asia","Asia",0
 "ISR",1,0,"Israel",21.6,8006085.191,"medium",0,0,"Israel","Middle East & North Africa","High income","","Asia","Asia",0
-"ITA",0,18,"Italy",14.4,60254972.26,"low",0,0,"Italy","Europe & Central Asia","High income","","Europe","Europe",20
-"ITA",1,18,"Italy",14.4,60254972.26,"low",0,0,"Italy","Europe & Central Asia","High income","","Europe","Europe",95
+"ITA",0,17,"Italy",14.4,60254972.26,"low",0,0,"Italy","Europe & Central Asia","High income","","Europe","Europe",20
+"ITA",1,17,"Italy",14.4,60254972.26,"low",0,0,"Italy","Europe & Central Asia","High income","","Europe","Europe",95
 "JAM",0,0,"Jamaica",15.4,2794445.0005,"medium",0,0,"Jamaica","Latin America & Caribbean","Upper middle income","IBRD","North America","Americas",0
 "JAM",1,0,"Jamaica",15.4,2794445.0005,"medium",0,0,"Jamaica","Latin America & Caribbean","Upper middle income","IBRD","North America","Americas",0
 "JEY",0,0,"Jersey",8.3,100561.000116,"very low",0,0,NA,NA,NA,NA,"Europe","Europe",0
@@ -231,8 +231,8 @@
 "KIR",1,0,"Kiribati",3.6,116706.99998,"very low",0,0,"Kiribati","East Asia & Pacific","Lower middle income","IDA","Oceania","Oceania",0
 "KNA",0,0,"Saint Kitts and Nevis",7.8,47790.00006,"very low",0,0,"St. Kitts and Nevis","Latin America & Caribbean","High income","IBRD","North America","Americas",0
 "KNA",1,0,"Saint Kitts and Nevis",7.8,47790.00006,"very low",0,0,"St. Kitts and Nevis","Latin America & Caribbean","High income","IBRD","North America","Americas",0
-"KOR",0,26,"South Korea",24.3,50994550.335,"medium",0,0,"Korea, Rep.","East Asia & Pacific","High income","","Asia","Asia",18
-"KOR",1,26,"South Korea",24.3,50994550.335,"medium",0,0,"Korea, Rep.","East Asia & Pacific","High income","","Asia","Asia",0
+"KOR",0,25,"South Korea",24.3,50994550.335,"medium",0,0,"Korea, Rep.","East Asia & Pacific","High income","","Asia","Asia",18
+"KOR",1,25,"South Korea",24.3,50994550.335,"medium",0,0,"Korea, Rep.","East Asia & Pacific","High income","","Asia","Asia",0
 "KWT",0,0,"Kuwait",56.6,3908967.1646,"very high",0,0,"Kuwait","Middle East & North Africa","High income","","Asia","Asia",1
 "KWT",1,0,"Kuwait",56.6,3908967.1646,"very high",0,0,"Kuwait","Middle East & North Africa","High income","","Asia","Asia",0
 "LAO",0,0,"Laos",25.7,6811332.9584,"high",0,0,"Lao PDR","East Asia & Pacific","Lower middle income","IDA","Asia","Asia",0
@@ -299,8 +299,8 @@
 "MUS",1,0,"Mauritius",12.5,1293152.9999,"low",0,0,"Mauritius","Sub-Saharan Africa","Upper middle income","IBRD","Seven seas (open ocean)","Africa",0
 "MWI",0,0,"Malawi",14.5,16907389.578,"low",0,0,"Malawi","Sub-Saharan Africa","Low income","IDA","Africa","Africa",2
 "MWI",1,0,"Malawi",14.5,16907389.578,"low",0,0,"Malawi","Sub-Saharan Africa","Low income","IDA","Africa","Africa",0
-"MYS",0,23,"Malaysia",20.9,31081433.179,"medium",0,0,"Malaysia","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",4
-"MYS",1,23,"Malaysia",20.9,31081433.179,"medium",0,0,"Malaysia","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",0
+"MYS",0,20,"Malaysia",20.9,31081433.179,"medium",0,0,"Malaysia","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",4
+"MYS",1,20,"Malaysia",20.9,31081433.179,"medium",0,0,"Malaysia","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",0
 "MYT",0,0,"Mayotte",6.5,249545.0001,"very low",0,0,NA,NA,NA,NA,NA,NA,0
 "MYT",1,0,"Mayotte",6.5,249545.0001,"very low",0,0,NA,NA,NA,NA,NA,NA,0
 "NAM",0,0,"Namibia",12.7,2282695.4977,"low",0,0,"Namibia","Sub-Saharan Africa","Upper middle income","IBRD","Africa","Africa",2
@@ -329,8 +329,8 @@
 "NZL",1,2,"New Zealand",7.8,4590585.058,"very low",0,0,"New Zealand","East Asia & Pacific","High income","","Oceania","Oceania",0
 "OMN",0,2,"Oman",34.7,4237809.064,"high",0,0,"Oman","Middle East & North Africa","High income","","Asia","Asia",0
 "OMN",1,2,"Oman",34.7,4237809.064,"high",0,0,"Oman","Middle East & North Africa","High income","","Asia","Asia",0
-"PAK",0,12,"Pakistan",46.4,210923972.87,"very high",0,0,"Pakistan","South Asia","Lower middle income","Blend","Asia","Asia",2
-"PAK",1,12,"Pakistan",46.4,210923972.87,"very high",0,0,"Pakistan","South Asia","Lower middle income","Blend","Asia","Asia",0
+"PAK",0,11,"Pakistan",46.4,210923972.87,"very high",0,0,"Pakistan","South Asia","Lower middle income","Blend","Asia","Asia",2
+"PAK",1,11,"Pakistan",46.4,210923972.87,"very high",0,0,"Pakistan","South Asia","Lower middle income","Blend","Asia","Asia",0
 "PAN",0,0,"Panama",16.5,3951603.2638,"medium",0,0,"Panama","Latin America & Caribbean","High income","IBRD","North America","Americas",0
 "PAN",1,0,"Panama",16.5,3951603.2638,"medium",0,0,"Panama","Latin America & Caribbean","High income","IBRD","North America","Americas",0
 "PCN",0,0,"Pitcairn Islands",2.4,65.30609376,"very low",0,0,NA,NA,NA,NA,"Oceania","Oceania",0
@@ -401,8 +401,8 @@
 "SVK",1,1,"Slovakia",14.1,5424020.0425,"low",0,0,"Slovak Republic","Europe & Central Asia","High income","","Europe","Europe",80
 "SVN",0,4,"Slovenia",13.3,2047926.18,"low",0,0,"Slovenia","Europe & Central Asia","High income","","Europe","Europe",15
 "SVN",1,4,"Slovenia",13.3,2047926.18,"low",0,0,"Slovenia","Europe & Central Asia","High income","","Europe","Europe",80
-"SWE",0,12,"Sweden",5.8,9850041.32,"very low",0,0,"Sweden","Europe & Central Asia","High income","","Europe","Europe",20
-"SWE",1,12,"Sweden",5.8,9850041.32,"very low",0,0,"Sweden","Europe & Central Asia","High income","","Europe","Europe",90
+"SWE",0,11,"Sweden",5.8,9850041.32,"very low",0,0,"Sweden","Europe & Central Asia","High income","","Europe","Europe",20
+"SWE",1,11,"Sweden",5.8,9850041.32,"very low",0,0,"Sweden","Europe & Central Asia","High income","","Europe","Europe",90
 "SWZ",0,0,"Swaziland",14.9,1136672.32528,"low",0,0,"Eswatini","Sub-Saharan Africa","Lower middle income","Blend","Africa","Africa",2
 "SWZ",1,0,"Swaziland",14.9,1136672.32528,"low",0,0,"Eswatini","Sub-Saharan Africa","Lower middle income","Blend","Africa","Africa",0
 "SXM",0,0,"Sint Maarten",7.9,39267.390083,"very low",0,0,"Sint Maarten (Dutch part)","Latin America & Caribbean","High income","","North America","Americas",0
@@ -417,8 +417,8 @@
 "TCD",1,0,"Chad",36.5,14125227.669,"very high",0,0,"Chad","Sub-Saharan Africa","Low income","IDA","Africa","Africa",0
 "TGO",0,0,"Togo",30,7430917.711,"high",0,0,"Togo","Sub-Saharan Africa","Low income","IDA","Africa","Africa",2
 "TGO",1,0,"Togo",30,7430917.711,"high",0,0,"Togo","Sub-Saharan Africa","Low income","IDA","Africa","Africa",0
-"THA",0,11,"Thailand",25.2,70317465.6,"high",0,0,"Thailand","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",14
-"THA",1,11,"Thailand",25.2,70317465.6,"high",0,0,"Thailand","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",0
+"THA",0,10,"Thailand",25.2,70317465.6,"high",0,0,"Thailand","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",14
+"THA",1,10,"Thailand",25.2,70317465.6,"high",0,0,"Thailand","East Asia & Pacific","Upper middle income","IBRD","Asia","Asia",0
 "TJK",0,0,"Tajikistan",29.2,8535910.108,"high",0,0,"Tajikistan","Europe & Central Asia","Lower middle income","IDA","Asia","Asia",3
 "TJK",1,0,"Tajikistan",29.2,8535910.108,"high",0,0,"Tajikistan","Europe & Central Asia","Lower middle income","IDA","Asia","Asia",0
 "TKL",0,0,"Tokelau",3,1453.999996,"very low",0,0,NA,NA,NA,NA,NA,NA,0
@@ -447,8 +447,8 @@
 "UKR",1,0,"Ukraine",13.9,44980379.55,"low",0,0,"Ukraine","Europe & Central Asia","Upper middle income","IBRD","Europe","Europe",0
 "URY",0,0,"Uruguay",12.4,3403403.1367,"low",0,0,"Uruguay","Latin America & Caribbean","High income","IBRD","South America","Americas",1
 "URY",1,0,"Uruguay",12.4,3403403.1367,"low",0,0,"Uruguay","Latin America & Caribbean","High income","IBRD","South America","Americas",0
-"USA",0,59,"United States",7.4,324648883.7,"very low",0,0,"United States","North America","High income","","North America","Americas",18
-"USA",1,59,"United States",7.4,324648883.7,"very low",0,0,"United States","North America","High income","","North America","Americas",0
+"USA",0,58,"United States",7.4,324648883.7,"very low",0,0,"United States","North America","High income","","North America","Americas",18
+"USA",1,58,"United States",7.4,324648883.7,"very low",0,0,"United States","North America","High income","","North America","Americas",0
 "UZB",0,0,"Uzbekistan",30.4,31080396.384,"high",0,0,"Uzbekistan","Europe & Central Asia","Lower middle income","Blend","Asia","Asia",3
 "UZB",1,0,"Uzbekistan",30.4,31080396.384,"high",0,0,"Uzbekistan","Europe & Central Asia","Lower middle income","Blend","Asia","Asia",0
 "VAT",0,0,"Vatican City",15.2,0,"medium",0,0,NA,NA,NA,NA,"Europe","Europe",0

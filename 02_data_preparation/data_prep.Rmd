@@ -12,6 +12,10 @@ library(countrycode)
 
 datasetClassification <- read.csv("output/dataClassifToPloto4mini.csv")
 
+papers_to_exclude <- read.csv("output/papers_to_exclude.csv")
+datasetClassification <- datasetClassification %>%
+  filter(ID %ni% papers_to_exclude$ID)
+
 datasetCountries <- read.csv("output/fullClassifCountryo4mini.csv")
 
 datasetCountries <- datasetCountries %>% 
@@ -155,6 +159,10 @@ library(tidyverse)
 "%ni%" = Negate("%in%")
 
 datasetClassification <- read.csv("output/dataClassifToPloto4mini.csv")
+
+papers_to_exclude <- read.csv("output/papers_to_exclude.csv")
+datasetClassification <- datasetClassification %>%
+  filter(ID %ni% papers_to_exclude$ID)
 
 datasetCountries <- read.csv("output/fullClassifCountryo4mini.csv")
 
@@ -384,6 +392,10 @@ library(tidyverse)
 
 datasetClassification <- read.csv("output/dataClassifToPloto4mini.csv")
 
+papers_to_exclude <- read.csv("output/papers_to_exclude.csv")
+datasetClassification <- datasetClassification %>%
+  filter(ID %ni% papers_to_exclude$ID)
+
 datasetCountries <- read.csv("output/fullClassifCountryo4mini.csv")
 
 datasetCountries <- datasetCountries %>% 
@@ -444,11 +456,28 @@ summaryDataset2 <- summaryDataset2 %>%
   filter(!(iso3 == "CYP" & country == "Northern Cyprus"))
 
 # count the number of single IDs in Europe
-summaryDataset2 %>% 
-  filter(continent == "Europe") %>% 
+summaryDataset2 %>%
+  filter(continent == "Europe") %>%
   group_by(ID) %>%
-  summarize(presence = first(continent)) %>% 
+  summarize(presence = first(continent)) %>%
   nrow(.)
+
+# count papers by specific countries (deduplicated by ID)
+country_counts <- list(
+  USA         = "USA",
+  India       = "IND",
+  South_Korea = "KOR",
+  China       = "CHN"
+)
+
+for (cname in names(country_counts)) {
+  iso <- country_counts[[cname]]
+  n <- summaryDataset2 %>%
+    filter(iso3 == iso) %>%
+    distinct(ID) %>%
+    nrow()
+  cat(cname, ":", n, "\n")
+}
   
 ```
 
