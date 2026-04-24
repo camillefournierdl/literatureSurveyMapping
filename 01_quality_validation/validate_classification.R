@@ -2,6 +2,8 @@ library(tidyverse)
 
 if (!exists("modelName")) modelName <- "o4mini"
 
+papers_to_exclude <- read.csv("output/papers_to_exclude.csv")
+
 ## first load gpt-coded labeled data
 datasetGPT <- read.csv(paste("data/llm_classifications/classification_", modelName, ".csv", sep = ""))
 
@@ -147,7 +149,7 @@ datasetGPTsimple_wide_certain <- subset(datasetGPTsimple_wide, Blank_count < 2)
 
 colsGPT <- c("Perceptions", "Behaviors", "Policy", "Health", "Priority", "None")
 
-datasetGPTsimple_wide_fit <- datasetGPTsimple_wide_certain %>% 
+datasetGPTsimple_wide_fit <- datasetGPTsimple_wide_certain %>%
   rename(
     Behavior = Behaviors_mode,
     Perceptions = Perceptions_mode,
@@ -157,8 +159,10 @@ datasetGPTsimple_wide_fit <- datasetGPTsimple_wide_certain %>%
     None = None_mode
   ) %>%
   mutate(reader = "ChatGPT",
-         ID = ID) %>% 
-  select(ID, Perceptions, Priority, Policy, Health, Behavior, None, reader)
+         ID = ID) %>%
+  select(ID, Perceptions, Priority, Policy, Health, Behavior, None, reader) %>%
+  filter(ID %in% datasetInclusion$custom_id) %>%
+  filter(ID %ni% papers_to_exclude$ID)
 
 write.csv(datasetGPTsimple_wide_fit, paste("output/dataClassifToPlot", modelName, ".csv", sep = ""), row.names = F) # save for future plotting, after QA
 

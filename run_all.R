@@ -11,25 +11,25 @@ run_rmd <- function(path) {
   source(tmp, local = FALSE)
 }
 
-# ── 1. LLM validation ────────────────────────────────────────────────────────
+# ── 1. Remove duplicates and retracted papers (must run first) ────────────────
+message("Step 1a: Identifying duplicate and retracted papers...")
+source("01_quality_validation/identify_retracted_duplicates.R")
+
+# ── 2. LLM validation ────────────────────────────────────────────────────────
 for (modelName in c("o4mini", "5mini")) {
-  message(sprintf("Step 1a: Validating LLM classification (%s)...", modelName))
+  message(sprintf("Step 2a: Validating LLM classification (%s)...", modelName))
   source("01_quality_validation/validate_classification.R")
 
-  message(sprintf("Step 1c: Validating LLM inclusion decisions (%s)...", modelName))
+  message(sprintf("Step 2b: Validating LLM inclusion decisions (%s)...", modelName))
   source("01_quality_validation/validate_inclusion.R")
 
-  message(sprintf("Step 1d: Validating LLM country extraction (%s)...", modelName))
+  message(sprintf("Step 2c: Validating LLM country extraction (%s)...", modelName))
   source("01_quality_validation/validate_countries.R")
 }
 
-# 1b: Resolve unknown countries (o4mini only); produces output/fullClassifCountryo4mini.csv
-message("Step 1b: Resolving unknown countries...")
+# Resolve unknown countries (o4mini only); produces output/fullClassifCountryo4mini.csv
+message("Step 2d: Resolving unknown countries...")
 source("01_quality_validation/resolve_unknown_countries.R")
-
-# 1c: Identify duplicates and retracted
-message("Step 1c: Identify duplicate papers...")
-source("01_quality_validation/identify_retracted_duplicates.R")
 
 # ── 2. Data preparation ───────────────────────────────────────────────────────
 message("Step 2: Preparing analysis datasets...")
